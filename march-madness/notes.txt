@@ -1,0 +1,41 @@
+2023:
+ * Archive old code by copying into a folder
+ * Delete anything in "search_picks" folder
+ * Delete stuff in "truth", "brackets", "family", "forecast", "schedules" folders, basically anything that isn't .py file. 
+ * Download new forecast/fivethirtyeight_ncaa_forecast.csv
+ * Generate a new 5050.csv by putting all 1 in the team_rating column
+ * Hardcode first round playin winners in forecast.py by looking in fivethirtyeight_ncaa_forecast.csv and finding the playin teams and choosing winner/losers by their id. 
+ * Once the games start, fill out losers.schedule to fill out the list of losing teams in order. Then use create_truth_files_from_schedule.py to generate truth files. 
+  ** start with a blank losers.schedule to get a round0_game00.truth file to help with how to write the names.
+* Run python scenarios.py --truth_files_dir ./truth/history/ to analyze what actually happened
+ ** Make sure yahoo parsing worked by looking at family/members_table. If it didn't work check out parse_group in yahoo_parsing.py
+* scenarios.py will produce "truth/history/family.results". This is a csv you can paste into google sheets. 
+
+Things to check or change
+ * Hardcode first round playin winners in forecast.py
+ * Check region ordering in sort_first_games() forecast.py
+ * Check region ordering in sort_teams() yahoo_parsing.py
+ * Hardcode group_id in run_yahoo_parsing in yahoo_parsing.py
+ * Hardcode scoring in score_brackets in compete.py
+ * Add to synonyms.py as necessary to match up between yahoo team names and 538 forecast team names. 
+ * Make a "50/50" forecast by changing the rating column to all 1 in 538 forecast csv
+
+
+What to run
+ * Run search_picks.py to make picks
+ * Run create_truth_files_from_schedule.py to create truth scenarios. 
+ * Run compete.py to score a specific truth scenario file
+ * Run scenarios.py to run a batch of scenarios
+
+
+ToDo
+ * When creating scenario.truth files give them more unique names so the brackets are regenerated rather than loading from cache
+ * Something is funky with output of scenarios.py
+ * Keep cleaning up scenarios.py
+ * Make plots of history in scenarios
+ * More data mining for getting scenarios without running specific truth files
+ * Visualization of picks and scenarios
+ * Ultimate goal: gui for outcomes with turning on/off truth scenarios like 538
+ * Convert ids to bracket? 
+ * Switch to just using probabilties instead of monte carlo
+ * Make debugging tools for checking region order between yahoo and 538
